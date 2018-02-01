@@ -5,7 +5,9 @@ import { Routes } from '@angular/router/src/config';
 
 const appRoutes: Routes = [
     { path: '', component: ListagemComponent },
-    { path: 'cadastro', component: CadastroComponent }
+    { path: 'listagem', component: ListagemComponent },
+    { path: 'cadastro', component: CadastroComponent },
+    { path: '**', redirectTo: '' }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

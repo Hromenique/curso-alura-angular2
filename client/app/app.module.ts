@@ -11,9 +11,9 @@ import { ListagemComponent } from './listagem/listagem.component';
 import { routing } from './app.routes';
 
 @NgModule({
-    imports: [BrowserModule, FotoModule, HttpModule, PainelModule],
+    imports: [BrowserModule, FotoModule, HttpModule, PainelModule, routing],
     declarations: [AppComponent, CadastroComponent, ListagemComponent],
-    bootstrap: [CadastroComponent]
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 
