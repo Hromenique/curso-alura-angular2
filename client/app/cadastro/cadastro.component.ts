@@ -12,7 +12,7 @@ export class CadastroComponent {
     foto: FotoComponent = new FotoComponent();
     http: Http;
 
-    constructor(http: Http){
+    constructor(http: Http) {
         this.http = http;
     }
 
@@ -22,11 +22,11 @@ export class CadastroComponent {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        this.http.post('v1/fotos', JSON.stringify(this.foto), {headers: headers})
-        .subscribe(() => {
-            this.foto = new FotoComponent();
-            console.log('Foto salva com sucesso');
-        }, erro => console.log(erro));
+        this.http.post('v1/fotos', JSON.stringify(this.foto), { headers: headers })
+            .subscribe(() => {
+                this.foto = new FotoComponent();
+                console.log('Foto salva com sucesso');
+            }, erro => console.log(erro));
     }
 
 }
