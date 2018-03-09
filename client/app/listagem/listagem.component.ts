@@ -22,11 +22,16 @@ export class ListagemComponent {
     }
 
     remove(foto: FotoComponent): void {
-        this.service.remove(foto).subscribe(
-            fotos => {
-                let indiceDaFoto = this.fotos.indexOf(foto);
-                this.fotos.slice(indiceDaFoto, 1);
+        this.service
+        .remove(foto)
+        .subscribe(
+            () => {
+                //mudar a referência para this.fotos para desencadear a detecção de mudança na view
                 console.log('Foto removida com sucesso');
+                let novasFotos = this.fotos.slice(0);
+                let indice = novasFotos.indexOf(foto);
+                novasFotos.splice(indice, 1);
+                this.fotos = novasFotos;
             },
             erro => console.log(erro)
         );
