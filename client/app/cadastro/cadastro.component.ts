@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core'
 import { FotoComponent } from '../foto/foto.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FotoService } from '../foto/foto.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -13,13 +14,31 @@ export class CadastroComponent {
     foto: FotoComponent = new FotoComponent();
     service: FotoService;
     meuForm: FormGroup;
+    route: ActivatedRoute;
+    mensagem: string = '';
+    router: Router;
 
-    constructor(service: FotoService, fb: FormBuilder) {
+    constructor(service: FotoService, fb: FormBuilder, route: ActivatedRoute, router: Router) {
         this.service = service;
+
         this.meuForm = fb.group({
             titulo: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
             url: ['', Validators.required],
             descricao: ['']
+        });
+
+        this.router = router;
+        this.route = route;
+        this.route.params.subscribe(param => {
+            let id = param['id'];
+            if (id) {
+                this.service
+                .buscaPorId(id)
+                .subscribe(
+                foto => this.foto = foto,
+                error => console.log(error)
+                );
+            }
         });
     }
 
@@ -30,8 +49,12 @@ export class CadastroComponent {
         this.service.cadastra(this.foto)
             .subscribe(() => {
                 this.foto = new FotoComponent();
-                console.log('Foto salva com sucesso');
-            }, erro => console.log(erro));
+                this.mensagem = 'Foto salva com sucesso';
+                this.router.navigate(['']);
+            }, erro => {
+                this.mensagem = 'Ocorreu um erro ao salvar a foto';
+                console.log(erro);
+            });
     }
 
 }
