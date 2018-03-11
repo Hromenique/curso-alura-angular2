@@ -47,13 +47,13 @@ export class CadastroComponent {
         console.log(this.foto);
 
         this.service.cadastra(this.foto)
-            .subscribe(() => {
+            .subscribe(res => {
+                this.mensagem = res.obterMensagem();
                 this.foto = new FotoComponent();
-                this.mensagem = 'Foto salva com sucesso';
-                this.router.navigate(['']);
+                if(!res.ehInclusao()) this.router.navigate(['']);
             }, erro => {
-                this.mensagem = 'Ocorreu um erro ao salvar a foto';
                 console.log(erro);
+                this.mensagem = 'Não foi possível salvar a foto';
             });
     }
 
