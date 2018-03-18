@@ -12,12 +12,15 @@ export class BotaoComponent {
     @Input() tipo: string = 'button';
     @Input() desabilitado: boolean = false;
     @Output() acao = new EventEmitter();
+    @Input() confirmacao: boolean = false;
 
-    executaAcao(){
-        console.log("entrou1");
-        if(confirm('Tem certeza?')){
-            console.log("entrou2");
-            this.acao.emit(null);
+    executaAcao() {
+        if (this.confirmacao) {
+            if (confirm('Tem certeza?')) {
+                this.acao.emit(null);
+            }
+            return;
         }
+        this.acao.emit(null);
     }
 }
