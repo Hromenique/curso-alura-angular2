@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     moduleId: module.id,
@@ -11,4 +11,13 @@ export class BotaoComponent {
     @Input() estilo: string = 'btn-default';
     @Input() tipo: string = 'button';
     @Input() desabilitado: boolean = false;
+    @Output() acao = new EventEmitter();
+
+    executaAcao(){
+        console.log("entrou1");
+        if(confirm('Tem certeza?')){
+            console.log("entrou2");
+            this.acao.emit(null);
+        }
+    }
 }
